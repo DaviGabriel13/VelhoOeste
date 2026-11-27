@@ -1,0 +1,175 @@
+================================================================
+        VELHO OESTE - BUSCA POR VINGANÇA
+        COMO O JOGO FUNCIONA
+================================================================
+
+----------------------------------------------------------------
+1. HISTÓRIA
+----------------------------------------------------------------
+
+Você é um pistoleiro em busca de vingança. Sua mãe foi assassinada
+por Snake "O Cruel", um pistoleiro temido do Velho Oeste.
+
+Para chegar até ele, você precisa derrotar dois capangas primeiro.
+Cada um guarda uma pista sobre a localização do próximo inimigo.
+
+Ao todo são 3 pistoleiros para enfrentar:
+
+  - Billy "Mão Rápida"   (Nível 1 - Fácil)    — Saloon de Dustville
+  - Jack "Olho de Águia" (Nível 2 - Médio)    — Mina abandonada
+  - Snake "O Cruel"      (Nível 3 - Chefe)    — Cemitério ao pôr do sol
+
+
+----------------------------------------------------------------
+2. COMO INICIAR O JOGO
+----------------------------------------------------------------
+
+No terminal, dentro da pasta do projeto:
+
+  java -cp bin Main
+
+Ou clique duas vezes no arquivo: executar.bat
+
+
+----------------------------------------------------------------
+3. FLUXO COMPLETO DO JOGO
+----------------------------------------------------------------
+
+PASSO 1 — Nome do personagem
+  Ao abrir o jogo, uma caixa aparece pedindo o nome do seu
+  personagem. Digite o nome desejado e confirme.
+  Se deixar em branco, o nome padrão será "Pistoleiro Misterioso".
+
+PASSO 2 — Tela de história
+  Uma janela com fundo cor de areia exibe a história do jogo.
+  Leia o contexto e clique no botão "INICIAR JORNADA" para começar.
+
+PASSO 3 — Para cada pistoleiro, o jogo tem duas fases:
+
+  ┌─────────────────────────────────────────────────────────┐
+  │  FASE 1 — NAVEGAÇÃO (Encontrar o pistoleiro)            │
+  └─────────────────────────────────────────────────────────┘
+
+  a) O jogo exibe um caminho com passos numerados. Exemplo:
+       1. Frente
+       2. Esquerda
+       3. Frente
+     Você tem 10 segundos para memorizar esse caminho.
+     A janela fecha automaticamente ao fim do tempo.
+
+  b) Em seguida, o jogo pede que você reproduza o caminho,
+     um passo por vez, clicando nos botões:
+       [ Esquerda ]   [ Frente ]   [ Direita ]
+
+  c) Se acertar todos os passos, você encontra o pistoleiro
+     e avança para o duelo.
+
+  d) Se errar qualquer passo, o jogo pergunta se quer
+     tentar novamente. Escolha "Sim" para rever o caminho
+     e tentar de novo, ou "Não" para encerrar.
+
+  ┌─────────────────────────────────────────────────────────┐
+  │  FASE 2 — DUELO (Derrotar o pistoleiro)                 │
+  └─────────────────────────────────────────────────────────┘
+
+  a) Uma janela de duelo abre com fundo marrom.
+     O texto "Aguarde o sinal..." aparece no centro.
+
+  b) Após um tempo aleatório entre 2 e 5 segundos,
+     o texto muda para "ATIRE!" em vermelho.
+
+  c) Nesse momento, pressione ESPAÇO e depois ENTER
+     o mais rápido possível.
+
+  d) O pistoleiro também atira após 0,8 a 1,2 segundos
+     do sinal. Se você não agir a tempo, ele atira primeiro
+     e você perde o duelo.
+
+  RESULTADO DO DUELO:
+  - Você atirou antes do sinal → derrota por desonra.
+  - Pistoleiro atirou primeiro → você recebe dano e perde.
+  - Você apertou ESPAÇO + ENTER a tempo → vitória!
+
+  Em caso de derrota, o jogo pergunta se quer tentar o duelo
+  novamente. Sua vida é restaurada ao tentar de novo.
+
+PASSO 4 — Após cada vitória
+  O jogo exibe o status do seu personagem:
+    - Nome
+    - Vida atual
+    - Arma equipada
+    - Quantidade de pistoleiros derrotados
+
+  A arma do pistoleiro derrotado é adicionada ao seu inventário
+  e equipada automaticamente. Sua vida é restaurada para 100.
+
+PASSO 5 — Fim de jogo
+  Existem dois desfechos possíveis:
+
+  VITÓRIA: Você derrota os 3 pistoleiros.
+    → Mensagem de parabéns com seu status final.
+
+  GAME OVER: Você desiste em qualquer fase ou perde o duelo
+             e não quer tentar novamente.
+    → Mensagem de fim de jogo com seu status até aquele ponto.
+
+  Em ambos os casos, o jogo fecha ao confirmar a mensagem.
+
+
+----------------------------------------------------------------
+4. PERSONAGENS E ATRIBUTOS
+----------------------------------------------------------------
+
+JOGADOR
+  - Vida inicial: 100
+  - Arma inicial: Revólver Enferrujado (dano 10)
+  - A cada vitória: ganha a arma do inimigo derrotado
+  - Vida restaurada a 100 após cada duelo (vitória ou nova tentativa)
+
+PISTOLEIROS
+  Nome                   Nível  Vida   Arma                  Dano Total
+  ─────────────────────────────────────────────────────────────────────
+  Billy "Mão Rápida"       1     75    Colt 45               15 + 5 = 20
+  Jack "Olho de Águia"     2    100    Winchester 73         25 + 10 = 35
+  Snake "O Cruel"          3    125    Peacemaker Dourada    40 + 15 = 55
+
+  Fórmula de vida: 50 + (nível × 25)
+  Fórmula de dano: dano da arma + (nível × 5)
+
+
+----------------------------------------------------------------
+5. CAMINHOS CORRETOS (SPOILER)
+----------------------------------------------------------------
+
+  Billy "Mão Rápida":
+    1. Frente  2. Esquerda  3. Frente
+
+  Jack "Olho de Águia":
+    1. Direita  2. Frente  3. Direita  4. Esquerda
+
+  Snake "O Cruel":
+    1. Esquerda  2. Esquerda  3. Frente  4. Direita  5. Frente
+
+
+----------------------------------------------------------------
+6. DICAS
+----------------------------------------------------------------
+
+  - Leia o caminho com calma durante os 10 segundos.
+    Diga em voz alta ou escreva num papel se precisar.
+
+  - No duelo, mantenha os dedos prontos sobre ESPAÇO e ENTER
+    antes do sinal aparecer. O pistoleiro atira rápido.
+
+  - Não pressione nenhuma tecla antes do "ATIRE!" aparecer,
+    ou você perde automaticamente.
+
+  - Se perder um duelo, pode tentar de novo sem penalidade,
+    pois a vida é restaurada a cada tentativa.
+
+
+================================================================
+  Projeto desenvolvido por:
+  Amanda Soares, Davi Oliveira, Dariene Leite, Everton Junca,
+  Gabriel Augusto, João Lucas, Kevin Washington e Murilo Inácio.
+================================================================

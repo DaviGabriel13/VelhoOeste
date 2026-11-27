@@ -1,0 +1,265 @@
+================================================================================
+           ESTRUTURA DO PROJETO - VELHO OESTE (POO)
+================================================================================
+
+📁 velhooeste/
+│
+├── 📁 src/                          [Código Fonte]
+│   │
+│   ├── 📄 Main.java                 ⭐ Ponto de Entrada
+│   │   └── Inicializa o jogo
+│   │
+│   ├── 📄 Jogo.java                 🎮 Controlador Principal
+│   │   ├── Gerencia o fluxo do jogo
+│   │   ├── Contém: Jogador, Pistoleiros, Fases
+│   │   └── CONCEITO: COMPOSIÇÃO
+│   │
+│   ├── 📄 Personagem.java           👤 Classe Abstrata
+│   │   ├── Atributos: nome, vida, armaAtual
+│   │   ├── Métodos: receberDano(), estaVivo()
+│   │   ├── Abstratos: atacar(), obterInformacoes()
+│   │   └── CONCEITOS: ABSTRAÇÃO + ENCAPSULAMENTO
+│   │
+│   ├── 📄 Jogador.java              🤠 Herda de Personagem
+│   │   ├── Atributos adicionais: inventario, pistoleirosderrotados
+│   │   ├── Implementa: atacar(), obterInformacoes()
+│   │   └── CONCEITOS: HERANÇA + POLIMORFISMO
+│   │
+│   ├── 📄 Pistoleiro.java           🔫 Herda de Personagem
+│   │   ├── Atributos adicionais: nivel, caminho, localizacao
+│   │   ├── Implementa: atacar(), obterInformacoes()
+│   │   └── CONCEITOS: HERANÇA + POLIMORFISMO
+│   │
+│   ├── 📄 Arma.java                 🎯 Classe Simples
+│   │   ├── Atributos PRIVADOS: nome, dano, descricao
+│   │   ├── Métodos PÚBLICOS: getters/setters
+│   │   └── CONCEITO: ENCAPSULAMENTO
+│   │
+│   ├── 📄 FaseNavegacao.java        🗺️ Fase de Memorização
+│   │   ├── Contém: Pistoleiro
+│   │   ├── Lógica: Mostrar caminho, coletar input, verificar
+│   │   └── CONCEITO: COMPOSIÇÃO
+│   │
+│   └── 📄 FaseDuelo.java            ⚔️ Fase de Combate
+│       ├── Contém: Jogador, Pistoleiro
+│       ├── Lógica: Duelo em tempo real, verificar reflexos
+│       └── CONCEITO: COMPOSIÇÃO + POLIMORFISMO
+│
+├── 📁 bin/                          [Arquivos Compilados]
+│   └── Gerado após executar compilar.bat/.sh
+│
+├── 📄 README.md                     📖 Documentação Principal
+├── 📄 CONCEITOS_POO.md              🎓 Explicação Detalhada dos Conceitos
+├── 📄 INSTALACAO_JAVA.md            ⚙️ Guia de Instalação do JDK
+├── 📄 ROTEIRO_APRESENTACAO.md       🎥 Roteiro para Vídeo
+├── 📄 ESTRUTURA_PROJETO.txt         📋 Este arquivo
+│
+├── 📄 compilar.bat                  🪟 Script de Compilação (Windows)
+├── 📄 executar.bat                  🪟 Script de Execução (Windows)
+├── 📄 compilar.sh                   🐧 Script de Compilação (Linux/Mac)
+└── 📄 executar.sh                   🐧 Script de Execução (Linux/Mac)
+
+================================================================================
+                        FLUXO DE EXECUÇÃO DO JOGO
+================================================================================
+
+Main.java
+   │
+   └─► Jogo.java
+         │
+         ├─► inicializarJogo()
+         │     ├─► Cria Jogador
+         │     └─► Cria 3 Pistoleiros (ArrayList)
+         │
+         ├─► criarInterface()
+         │     └─► Mostra tela inicial com história
+         │
+         └─► enfrentarProximoPistoleiro()  [LOOP para cada pistoleiro]
+               │
+               ├─► FaseNavegacao.iniciar()
+               │     ├─► Mostra caminho (10 segundos)
+               │     ├─► Coleta input do jogador
+               │     └─► Verifica se acertou
+               │
+               └─► FaseDuelo.iniciar()
+                     ├─► Aguarda sinal aleatório
+                     ├─► Detecta teclas (ESPAÇO + ENTER)
+                     ├─► Timer do pistoleiro
+                     ├─► Determina vencedor
+                     └─► Se vitória: adiciona arma ao inventário
+
+================================================================================
+                     HIERARQUIA DE CLASSES (POO)
+================================================================================
+
+                        Personagem
+                        (abstrata)
+                            ▲
+                            │
+                            │ extends
+                   ┌────────┴────────┐
+                   │                 │
+                Jogador          Pistoleiro
+                   │                 │
+                   │                 │
+        + inventario: List<Arma>  + nivel: int
+        + atacar(): int           + atacar(): int
+              ⬇                        ⬇
+         (dano da arma)      (dano da arma + bônus)
+
+
+        Arma                 Jogo              FaseNavegacao    FaseDuelo
+      (encap.)            (composição)        (composição)    (composição)
+         │                     │                   │               │
+    - nome: String       - jogador: Jogador  - pistoleiro   - jogador
+    - dano: int          - pistoleiros: []   - caminho      - pistoleiro
+    + getters/setters    - janela: JFrame    + iniciar()    + iniciar()
+
+================================================================================
+                        CONCEITOS POO MAPEADOS
+================================================================================
+
+┌─────────────────┬──────────────────────┬────────────────────────────────┐
+│   CONCEITO      │      ARQUIVO         │          ONDE ESTÁ             │
+├─────────────────┼──────────────────────┼────────────────────────────────┤
+│ Encapsulamento  │ Arma.java            │ Atributos private + getters    │
+│                 │ Personagem.java      │ Atributos protected            │
+├─────────────────┼──────────────────────┼────────────────────────────────┤
+│ Abstração       │ Personagem.java      │ abstract class + métodos abs.  │
+├─────────────────┼──────────────────────┼────────────────────────────────┤
+│ Herança         │ Jogador.java         │ extends Personagem             │
+│                 │ Pistoleiro.java      │ extends Personagem             │
+├─────────────────┼──────────────────────┼────────────────────────────────┤
+│ Polimorfismo    │ Jogador.java         │ @Override atacar()             │
+│                 │ Pistoleiro.java      │ @Override atacar() [diferente] │
+│                 │ FaseDuelo.java       │ Chama atacar() polimórfico     │
+├─────────────────┼──────────────────────┼────────────────────────────────┤
+│ Composição      │ Jogo.java            │ Contém Jogador + Pistoleiros   │
+│                 │ FaseNavegacao.java   │ Contém Pistoleiro              │
+│                 │ FaseDuelo.java       │ Contém Jogador + Pistoleiro    │
+└─────────────────┴──────────────────────┴────────────────────────────────┘
+
+================================================================================
+                        COMO COMPILAR E EXECUTAR
+================================================================================
+
+WINDOWS:
+--------
+1. Abra o Prompt de Comando
+2. Navegue até a pasta do projeto:
+   > cd C:\Users\joaol\OneDrive\Desktop\velhooeste
+3. Execute:
+   > compilar.bat
+4. Depois:
+   > executar.bat
+
+OU MANUALMENTE:
+   > javac -d bin -encoding UTF-8 src/*.java
+   > java -cp bin Main
+
+
+LINUX / MAC:
+------------
+1. Abra o Terminal
+2. Navegue até a pasta do projeto
+3. Dê permissão de execução:
+   $ chmod +x compilar.sh executar.sh
+4. Execute:
+   $ ./compilar.sh
+5. Depois:
+   $ ./executar.sh
+
+OU MANUALMENTE:
+   $ javac -d bin -encoding UTF-8 src/*.java
+   $ java -cp bin Main
+
+================================================================================
+                            GAMEPLAY RESUMIDO
+================================================================================
+
+1. INÍCIO
+   ├─ Jogador insere seu nome
+   └─ História é apresentada
+
+2. PARA CADA PISTOLEIRO (3 no total):
+   │
+   ├─ FASE 1: NAVEGAÇÃO
+   │  ├─ Sistema mostra caminho (ex: Frente → Esquerda → Direita)
+   │  ├─ Jogador tem 10 segundos para memorizar
+   │  ├─ Jogador digita o caminho
+   │  └─ Se errar: pode tentar novamente ou desistir
+   │
+   └─ FASE 2: DUELO
+      ├─ Espera sinal "ATIRE!"
+      ├─ Jogador pressiona ESPAÇO + ENTER
+      ├─ Se for mais rápido que o pistoleiro: VENCE
+      ├─ Se for mais lento: PERDE (pode tentar de novo)
+      └─ Vitória: ganha arma do pistoleiro
+
+3. FIM
+   └─ Após derrotar os 3 pistoleiros: JOGO COMPLETO! ✨
+
+================================================================================
+                              DADOS DO JOGO
+================================================================================
+
+PISTOLEIROS:
+
+1. Billy "Mão Rápida"
+   ├─ Nível: 1 (Fácil)
+   ├─ Vida: 75
+   ├─ Arma: Colt 45 (Dano: 15)
+   ├─ Caminho: 3 passos
+   └─ Local: Saloon da cidade de Dustville
+
+2. Jack "Olho de Águia"
+   ├─ Nível: 2 (Médio)
+   ├─ Vida: 100
+   ├─ Arma: Winchester 73 (Dano: 25)
+   ├─ Caminho: 4 passos
+   └─ Local: Mina abandonada nas montanhas
+
+3. Snake "O Cruel" (CHEFE FINAL)
+   ├─ Nível: 3 (Difícil)
+   ├─ Vida: 125
+   ├─ Arma: Peacemaker Dourada (Dano: 40)
+   ├─ Caminho: 5 passos
+   └─ Local: Cemitério ao pôr do sol
+
+JOGADOR:
+├─ Vida inicial: 100
+├─ Arma inicial: Revólver Enferrujado (Dano: 10)
+└─ Vida restaurada após cada duelo
+
+================================================================================
+                          TECNOLOGIAS UTILIZADAS
+================================================================================
+
+• Linguagem: Java 8+
+• Interface Gráfica: Swing (javax.swing)
+• Estruturas de Dados: ArrayList
+• Paradigma: Programação Orientada a Objetos
+• IDE Recomendada: Eclipse, IntelliJ IDEA, VS Code, ou NetBeans
+
+================================================================================
+                         CRÉDITOS E INFORMAÇÕES
+================================================================================
+
+Projeto: Velho Oeste - Busca por Vingança
+Disciplina: Programação Orientada a Objetos (POO)
+Curso: [Seu Curso]
+Instituição: [Sua Instituição]
+
+Participantes:
+• Amanda Soares
+• Davi Oliveira
+• Dariene Leite
+• Everton Junca
+• Gabriel Augusto
+• João Lucas
+• Kevin Washington
+• Murilo Inácio
+
+================================================================================
+                              FIM DO DOCUMENTO
+================================================================================
