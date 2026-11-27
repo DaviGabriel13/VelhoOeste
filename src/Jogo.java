@@ -25,7 +25,6 @@ public class Jogo {
     public Jogo() {
         inicializarJogo();
         criarInterface();
-        iniciarJogo();
     }
 
     /*
@@ -64,7 +63,7 @@ public class Jogo {
         Arma colt45 = new Arma("Colt 45", 15, "Um revólver confiável");
         String[] caminho1 = {"Frente", "Esquerda", "Frente"};
         Pistoleiro p1 = new Pistoleiro(
-            "Billy 'Mão Rápida'",
+            "Joãozinho Lucas 'Mão Rápida'",
             1,
             colt45,
             caminho1,
@@ -76,7 +75,7 @@ public class Jogo {
         Arma winchester = new Arma("Winchester 73", 25, "Rifle de repetição lendário");
         String[] caminho2 = {"Direita", "Frente", "Direita", "Esquerda"};
         Pistoleiro p2 = new Pistoleiro(
-            "Jack 'Olho de Águia'",
+            "Inácinho 'Olho de Águia'",
             2,
             winchester,
             caminho2,
@@ -88,7 +87,7 @@ public class Jogo {
         Arma peacemaker = new Arma("Peacemaker Dourada", 40, "A arma lendária do oeste");
         String[] caminho3 = {"Esquerda", "Esquerda", "Frente", "Direita", "Frente"};
         Pistoleiro p3 = new Pistoleiro(
-            "Snake 'O Cruel'",
+            "Aluísio 'O Cruel'",
             3,
             peacemaker,
             caminho3,
@@ -120,7 +119,7 @@ public class Jogo {
 
         String historia = "=== VELHO OESTE - BUSCA POR VINGANÇA ===\n\n";
         historia += "Você é " + jogador.getNome() + ", um pistoleiro em busca de vingança.\n\n";
-        historia += "Há anos atrás, sua mãe foi morta por um pistoleiro cruel chamado Snake 'O Cruel'.\n\n";
+        historia += "Há anos atrás, sua mãe foi morta por um pistoleiro cruel chamado Aluísio 'O Cruel'.\n\n";
         historia += "Para encontrá-lo, você precisa derrotar seus capangas e seguir as pistas.\n\n";
         historia += "Cada pistoleiro derrotado revelará a localização do próximo.\n\n";
         historia += "Sua jornada começa agora...\n\n";
@@ -145,12 +144,6 @@ public class Jogo {
 
         janelaPrincipal.add(painel);
         janelaPrincipal.setVisible(true);
-    }
-
-    // Inicia o jogo
-    private void iniciarJogo() {
-        // A interface já foi criada e está visível
-        // O jogo começa quando o jogador clicar no botão
     }
 
     /*
